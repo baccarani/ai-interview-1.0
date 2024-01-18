@@ -1,6 +1,6 @@
-import { describe, expect, test } from "vitest";
-import { render } from "@testing-library/react";
-import App from "./App";
+import { describe, expect, test } from 'vitest';
+import { render } from '@testing-library/react';
+import App from './App';
 
 describe("App", () => {
   test("DUMMY TEST", () => {
