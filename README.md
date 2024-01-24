@@ -27,3 +27,7 @@ npm run test:ui
 ```bash
 npm run test:coverage
 ```
+
+## Using `shadcn` in the project.
+
+[shadcn docs](https://ui.shadcn.com/docs)
