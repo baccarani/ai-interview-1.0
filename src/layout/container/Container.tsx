@@ -1,11 +1,12 @@
 type Props = {
   children?: React.ReactNode;
   className?: string;
+  size?: string;
 };
 
-const Container = ({ children, className = "" }: Props) => {
+const Container = ({ children, className = "", size = "max-w-4xl" }: Props) => {
   return (
-    <div className={`${className && className + " "}max-w-5xl mx-auto`}>
+    <div className={`${className && className + " "}${size} mx-auto`}>
       {children}
     </div>
   );
