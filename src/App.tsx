@@ -1,11 +1,11 @@
 import "./App.css";
-import { ModeToggle } from "./features/theme/ModeToggle";
+import Layout from "./layout/Layout";
 
 function App() {
   return (
-    <>
-      <ModeToggle />
-    </>
+    <Layout>
+      <h1>TESTING STUFF</h1>
+    </Layout>
   );
 }
 
