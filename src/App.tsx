@@ -1,9 +1,10 @@
 import "./App.css";
+import { ModeToggle } from "./features/theme/ModeToggle";
 
 function App() {
   return (
     <>
-      <p>TEST</p>
+      <ModeToggle />
     </>
   );
 }
