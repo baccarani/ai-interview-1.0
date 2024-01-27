@@ -11,7 +11,7 @@ function App() {
         <Card className="p-5">
           <h1 className="text-2xl font-semibold">Ai Interview</h1>
           <p className="text-slate-500">
-            Hone your interview skills practicing with ai.
+            Hone your interview skills practicing with AI
           </p>
         </Card>
         <Interview />
