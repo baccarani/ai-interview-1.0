@@ -1,5 +1,5 @@
 import "./App.css";
-import AudioRecorder from "./features/audio-recorder/AudioRecorder";
+import Recorder from "./features/recorder/Recorder";
 import { ModeToggle } from "./features/theme/ModeToggle";
 
 function App() {
@@ -7,7 +7,7 @@ function App() {
     <>
       <ModeToggle />
       <div className="py-4">
-      <AudioRecorder />
+      <Recorder fileName="random"/>
       </div>
     </>
   );
