@@ -7,6 +7,9 @@ type Props = {
 };
 
 const Chat = ({ messages }: Props) => {
+  if (!messages.length) {
+    return <p className="font-semibold">No Messages Available</p>;
+  }
   return (
     <ul className="flex flex-col gap-5">
       {messages.map((message) => (
