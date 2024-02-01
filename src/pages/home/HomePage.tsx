@@ -1,5 +1,5 @@
 import { Card } from "@/components/ui/card";
-import Interview from "@/features/interview/Interview";
+import InterviewSetup from "@/features/interview-setup/InterviewSetup";
 // import Recorder from "@/features/recorder/Recorder";
 import Layout from "@/layout/Layout";
 import Container from "@/layout/container/Container";
@@ -15,7 +15,7 @@ const HomePage = () => {
             Hone your interview skills practicing with AI
           </p>
         </Card>
-        <Interview />
+        <InterviewSetup />
       </Container>
     </Layout>
   );
