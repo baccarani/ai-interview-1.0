@@ -1,15 +1,16 @@
 import { Button } from '../../components/ui/button';
-// import { invokeSaveAsDialog } from 'recordrtc';
 import { useRecorderPermission } from './useRecorderPermission';
 import axios from 'axios'
+import { ChatResponse } from "@/services/OpenaiService";
 
 interface RecorderProps {
     fileName: string;
+    addMessage: (newMessage: ChatResponse) => void;
 }
 
-const Recorder = ({ fileName }: RecorderProps) => {
-    const recorder = useRecorderPermission('audio')
-    const API_URL = 'https://api.openai.com/v1/audio/transcriptions'
+const Recorder = ({ fileName, addMessage }: RecorderProps) => {
+    const recorder = useRecorderPermission('audio');
+    const API_URL = 'https://api.openai.com/v1/audio/transcriptions';
 
     const startRecording = async () => {
         recorder.startRecording()
@@ -18,14 +19,19 @@ const Recorder = ({ fileName }: RecorderProps) => {
     const stopRecording = async () => {
         await recorder.stopRecording()
         let blob = await recorder.getBlob()
-        // invokeSaveAsDialog(blob, `${fileName}.mp3`)
 
         let formData = new FormData();
         formData.append("file", blob, `${fileName}.mp3`);
         formData.append("model", "whisper-1");
 
         let response = await postData(API_URL, formData);
-        console.log(response);
+
+        const newMessage: ChatResponse = {
+            role: "user",
+            content: response.data.text,
+        };
+
+        addMessage(newMessage);
     }
 
     const axiosInstance = axios.create({
