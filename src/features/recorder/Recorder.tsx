@@ -2,6 +2,8 @@ import { Button } from '../../components/ui/button';
 import { useRecorderPermission } from './useRecorderPermission';
 import axios from 'axios'
 import { ChatResponse } from "@/services/OpenaiService";
+import { useState } from 'react';
+import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
 
 interface RecorderProps {
     fileName: string;
@@ -11,27 +13,30 @@ interface RecorderProps {
 const Recorder = ({ fileName, addMessage }: RecorderProps) => {
     const recorder = useRecorderPermission('audio');
     const API_URL = 'https://api.openai.com/v1/audio/transcriptions';
+    const [isRecording, setIsRecording] = useState(false);
 
-    const startRecording = async () => {
-        recorder.startRecording()
-    }
+    const toggleRecording = async () => {
+        if (isRecording) {
+            await recorder.stopRecording()
+            let blob = await recorder.getBlob()
 
-    const stopRecording = async () => {
-        await recorder.stopRecording()
-        let blob = await recorder.getBlob()
+            let formData = new FormData();
+            formData.append("file", blob, `${fileName}.mp3`);
+            formData.append("model", "whisper-1");
 
-        let formData = new FormData();
-        formData.append("file", blob, `${fileName}.mp3`);
-        formData.append("model", "whisper-1");
+            let response = await postData(API_URL, formData);
 
-        let response = await postData(API_URL, formData);
+            const newMessage: ChatResponse = {
+                role: "user",
+                content: response.data.text,
+            };
 
-        const newMessage: ChatResponse = {
-            role: "user",
-            content: response.data.text,
-        };
+            addMessage(newMessage);
+        } else {
+            recorder.startRecording()
+        }
 
-        addMessage(newMessage);
+        setIsRecording(!isRecording);
     }
 
     const axiosInstance = axios.create({
@@ -48,10 +53,11 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
-                <Button onClick={startRecording}>Start Recording</Button>
-                <Button onClick={stopRecording}>Stop Recording</Button>
-            </div>
+            <Button onClick={toggleRecording}>
+                <div className="icon-container">
+                    {isRecording ? <FaMicrophoneSlash className="icon" size={20} /> : <FaMicrophone className="icon" size={20} />}
+                </div>
+            </Button>
         </div>
     );
 };
