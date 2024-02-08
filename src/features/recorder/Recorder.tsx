@@ -16,6 +16,8 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
     const [isRecording, setIsRecording] = useState(false);
 
     const toggleRecording = async () => {
+        setIsRecording(!isRecording);
+
         if (isRecording) {
             await recorder.stopRecording()
             let blob = await recorder.getBlob()
@@ -35,8 +37,6 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
         } else {
             recorder.startRecording()
         }
-
-        setIsRecording(!isRecording);
     }
 
     const axiosInstance = axios.create({
