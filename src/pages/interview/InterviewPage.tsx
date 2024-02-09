@@ -15,7 +15,7 @@ const InterviewPage = () => {
         <Card className="p-5">
           <h3 className="font-semibold">Role: {role}</h3>
         </Card>
-        <Interview />
+        <Interview role={role} />
       </Container>
     </Layout>
   );
