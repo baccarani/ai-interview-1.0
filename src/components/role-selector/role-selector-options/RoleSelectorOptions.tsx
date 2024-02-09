@@ -8,6 +8,9 @@ type Props = {
   currentRole: Roles;
 };
 
+export const highlightedRoleClassNames =
+  "bg-blue-100 border-blue-500 border text-blue-700";
+
 const RoleSelectorOptions = ({ roles, currentRole, setCurrentRole }: Props) => {
   const changeRole = (role: Roles) => {
     setCurrentRole(role);
@@ -22,9 +25,7 @@ const RoleSelectorOptions = ({ roles, currentRole, setCurrentRole }: Props) => {
             className={`${buttonVariants({
               variant: "secondary",
             })} rounded-full ${
-              currentRole === role
-                ? "bg-blue-100 border-blue-500 border text-blue-700"
-                : "border"
+              currentRole === role ? highlightedRoleClassNames : "border"
             }`}
           >
             {role}
