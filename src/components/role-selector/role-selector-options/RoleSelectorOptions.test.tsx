@@ -8,6 +8,7 @@ import { Roles } from "../Roles";
 describe("RoleSelectorOptions", () => {
   const mockSetCurrentRole = vi.fn();
   const roles = Object.values(Roles);
+
   test("Should render role selector options component", () => {
     const currentRole: Roles = Roles.SOFTWARE_ENGINEER;
 
