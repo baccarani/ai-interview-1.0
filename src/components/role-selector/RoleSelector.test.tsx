@@ -23,7 +23,6 @@ describe("RoleSelector", () => {
       name: "Start Interview",
     });
 
-    expect(2 + 1).toBe(3);
     expect(startInterviewLink.getAttribute("href")).toContain(
       encodeURIComponent(Roles.SOFTWARE_ENGINEER)
     );
