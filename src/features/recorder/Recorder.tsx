@@ -3,7 +3,8 @@ import { useRecorderPermission } from './useRecorderPermission';
 import axios from 'axios'
 import { ChatResponse } from "@/services/OpenaiService";
 import { useState } from 'react';
-import { FaMicrophone, FaMicrophoneSlash } from 'react-icons/fa';
+import { Mic, MicOff } from 'lucide-react';
+
 
 interface RecorderProps {
     fileName: string;
@@ -55,7 +56,7 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
         <div className="flex flex-col items-center justify-center">
             <Button onClick={toggleRecording}>
                 <div className="icon-container">
-                    {isRecording ? <FaMicrophoneSlash className="icon" size={20} /> : <FaMicrophone className="icon" size={20} />}
+                    {isRecording ? <MicOff className="icon" /> : <Mic className="icon" />} 
                 </div>
             </Button>
         </div>
