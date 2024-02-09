@@ -1,16 +1,8 @@
-import "./App.css";
-import AudioRecorder from "./features/audio-recorder/AudioRecorder";
-import { ModeToggle } from "./features/theme/ModeToggle";
+import { RouterProvider } from "react-router-dom";
+import { router } from "./pages/router";
 
-function App() {
-  return (
-    <>
-      <ModeToggle />
-      <div className="py-4">
-      <AudioRecorder />
-      </div>
-    </>
-  );
-}
+const App = () => {
+  return <RouterProvider router={router} />;
+};
 
 export default App;

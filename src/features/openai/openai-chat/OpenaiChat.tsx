@@ -40,6 +40,8 @@ const OpenaiChat = () => {
     setAnswer(value);
   };
 
+  console.log(messages);
+
   return (
     <div className="p-3 flex w-[45rem] flex-col gap-5 border rounded dropshadow-md border-stone-500 bg-stone-900">
       {isLoading ? <p>Loading...</p> : null}
