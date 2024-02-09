@@ -3,9 +3,10 @@ import { useState } from "react";
 import { ChatResponse } from "@/services/OpenaiService";
 import Chat from "@/components/chat/Chat";
 import InterviewResponse from "./interview-response/InterviewResponse";
+import axios from "axios";
 
 const Interview = () => {
-  const [messages] = useState<ChatResponse[]>([
+  const [messages, setMessages] = useState<ChatResponse[]>([
     {
       role: "assistant",
       content:
@@ -22,10 +23,33 @@ const Interview = () => {
     },
   ]);
 
+  const addMessage = (newMessage: ChatResponse) => {
+    setMessages(prevMessages => [...prevMessages, newMessage]);
+    
+    const chatFormData = { messages: [...messages, newMessage], model: "gpt-3.5-turbo" };
+    postData(API_URL, chatFormData).then(chatResponse => {
+      setMessages(prevMessages => [...prevMessages, { content: chatResponse.data.choices[0].message.content, role: "assistant" }]);
+    });
+  };
+
+  const API_URL = 'https://api.openai.com/v1/chat/completions';
+
+  const axiosInstance = axios.create({
+    baseURL: API_URL,
+    headers: {
+      Authorization: `Bearer ${import.meta.env.VITE_OPEN_AI_API_KEY}`,
+      'Content-Type': 'application/json',
+    },
+  });
+
+  const postData = async (url: string, data: any) => {
+    return await axiosInstance.post(url, data);
+  };
+
   return (
     <Card className="p-5">
       <Chat messages={messages} />
-      <InterviewResponse />
+      <InterviewResponse addMessage={addMessage} />
     </Card>
   );
 };
