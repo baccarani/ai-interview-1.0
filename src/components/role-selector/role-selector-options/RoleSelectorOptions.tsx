@@ -9,7 +9,7 @@ type Props = {
 };
 
 export const highlightedRoleClassNames =
-  "bg-blue-100 border-blue-500 border text-blue-700";
+  "bg-blue-100 dark:bg-blue-500 border-blue-500 dark:border-blue-700 border text-blue-700 dark:text-blue-900 hover:bg-blue-100 dark:hover:bg-blue-600";
 
 const RoleSelectorOptions = ({ roles, currentRole, setCurrentRole }: Props) => {
   const changeRole = (role: Roles) => {
