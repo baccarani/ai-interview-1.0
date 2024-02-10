@@ -41,7 +41,7 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
 
     const axiosInstance = axios.create({
         headers: {
-            Authorization: `Bearer ${import.meta.env.VITE_OPEN_AI_API_KEY}`,
+            Authorization: `Bearer ${import.meta.env.VITE_OPENAI_API_KEY}`,
             'Content-Type': 'multipart/form-data',
         },
     });
