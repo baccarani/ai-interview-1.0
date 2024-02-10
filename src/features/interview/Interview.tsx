@@ -33,7 +33,7 @@ const Interview = ({ role }: Props) => {
 
     const chatFormData = {
       messages: [...messages, newMessage],
-      model: OpenaiModelTypes.GPT_4,
+      model: OpenaiModelTypes.GPT_3_TURBO,
     };
     postData("https://api.openai.com/v1/chat/completions", chatFormData).then((chatResponse) => {
       const assistantMessage = {
