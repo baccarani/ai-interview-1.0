@@ -4,6 +4,7 @@ import { ChatResponse } from "@/services/OpenaiService";
 import Chat from "@/components/chat/Chat";
 import InterviewResponse from "./interview-response/InterviewResponse";
 import axios from "axios";
+import { OpenaiModelTypes } from "@/services/OpenaiModelTypes";
 
 type Props = {
   role: string;
@@ -32,7 +33,7 @@ const Interview = ({ role }: Props) => {
 
     const chatFormData = {
       messages: [...messages, newMessage],
-      model: "gpt-3.5-turbo",
+      model: OpenaiModelTypes.GPT_4,
     };
     postData("https://api.openai.com/v1/chat/completions", chatFormData).then((chatResponse) => {
       const assistantMessage = {
