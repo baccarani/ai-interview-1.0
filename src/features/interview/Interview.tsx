@@ -34,29 +34,36 @@ const Interview = ({ role }: Props) => {
       messages: [...messages, newMessage],
       model: "gpt-3.5-turbo",
     };
-    postData(API_URL, chatFormData).then((chatResponse) => {
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        {
-          content: chatResponse.data.choices[0].message.content,
-          role: "assistant",
-        },
-      ]);
+    postData("https://api.openai.com/v1/chat/completions", chatFormData).then((chatResponse) => {
+      const assistantMessage = {
+        content: chatResponse.data.choices[0].message.content,
+        role: "assistant",
+      };
+  
+      postData("https://api.openai.com/v1/audio/speech", {
+        model: "tts-1-hd",
+        voice: "alloy",
+        input: assistantMessage.content,
+      }, 'blob').then((audioBlob) => {
+        const audio = new Audio(URL.createObjectURL(audioBlob.data));
+        setMessages((prevMessages) => [
+          ...prevMessages,
+          assistantMessage,
+        ]);
+        audio.play();
+      });
     });
   };
 
-  const API_URL = "https://api.openai.com/v1/chat/completions";
-
   const axiosInstance = axios.create({
-    baseURL: API_URL,
     headers: {
       Authorization: `Bearer ${import.meta.env.VITE_OPEN_AI_API_KEY}`,
       "Content-Type": "application/json",
     },
   });
 
-  const postData = async (url: string, data: any) => {
-    return await axiosInstance.post(url, data);
+  const postData = async (url: string, data: any, responseType: 'json' | 'blob' = 'json') => {
+    return await axiosInstance.post(url, data, { responseType });
   };
 
   return (

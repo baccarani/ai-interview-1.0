@@ -13,7 +13,6 @@ interface RecorderProps {
 
 const Recorder = ({ fileName, addMessage }: RecorderProps) => {
     const recorder = useRecorderPermission('audio');
-    const API_URL = 'https://api.openai.com/v1/audio/transcriptions';
     const [isRecording, setIsRecording] = useState(false);
 
     const toggleRecording = async () => {
@@ -27,7 +26,7 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
             formData.append("file", blob, `${fileName}.mp3`);
             formData.append("model", "whisper-1");
 
-            let response = await postData(API_URL, formData);
+            let response = await postData("https://api.openai.com/v1/audio/transcriptions", formData);
 
             const newMessage: ChatResponse = {
                 role: "user",
@@ -41,7 +40,6 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
     }
 
     const axiosInstance = axios.create({
-        baseURL: API_URL,
         headers: {
             Authorization: `Bearer ${import.meta.env.VITE_OPEN_AI_API_KEY}`,
             'Content-Type': 'multipart/form-data',
