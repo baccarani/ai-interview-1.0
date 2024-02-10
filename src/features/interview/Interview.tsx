@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { ChatResponse, openaiService } from "@/services/OpenaiService";
@@ -15,16 +15,19 @@ const Interview = ({ role }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    if (!messages.length) {
-      (async () => {
-        setIsLoading(true);
-        const initialInterview = await openaiService.startQuestions(role);
-        if (initialInterview) {
-          setMessages(initialInterview);
-        }
-        setIsLoading(false);
-      })();
-    }
+    let ignore = false;
+    (async () => {
+      setIsLoading(true);
+      const initialInterview = await openaiService.startQuestions(role);
+      if (initialInterview && !ignore) {
+        setMessages(initialInterview);
+      }
+      setIsLoading(false);
+    })();
+
+    return () => {
+      ignore = true;
+    };
   }, []);
 
   const addMessage = (newMessage: ChatResponse) => {
