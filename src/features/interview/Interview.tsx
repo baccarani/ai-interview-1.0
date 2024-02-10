@@ -14,12 +14,14 @@ const Interview = ({ role }: Props) => {
   const [messages, setMessages] = useState<ChatResponse[]>([]);
 
   useEffect(() => {
-    (async () => {
-      const initialInterview = await openaiService.startQuestions(role);
-      if (initialInterview) {
-        setMessages(initialInterview);
-      }
-    })();
+    if (!messages.length) {
+      (async () => {
+        const initialInterview = await openaiService.startQuestions(role);
+        if (initialInterview) {
+          setMessages(initialInterview);
+        }
+      })();
+    }
   }, []);
 
   const addMessage = (newMessage: ChatResponse) => {
