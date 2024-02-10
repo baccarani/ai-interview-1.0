@@ -4,11 +4,16 @@ import ChatBubbleLoading from "./chat-bubble/chat-bubble-loading/ChatBubbleLoadi
 
 type Props = {
   messages: ChatResponse[];
+  isLoading: boolean;
 };
 
-const Chat = ({ messages }: Props) => {
+const Chat = ({ messages, isLoading }: Props) => {
   if (!messages.length) {
-    return <p className="font-semibold">No Messages Available</p>;
+    return (
+      <p className="font-semibold">
+        {isLoading ? "Loading..." : "No Messages Available"}
+      </p>
+    );
   }
   return (
     <ul className="flex flex-col gap-5">
@@ -21,9 +26,11 @@ const Chat = ({ messages }: Props) => {
           />
         </li>
       ))}
-      <li>
-        <ChatBubbleLoading />
-      </li>
+      {isLoading ? (
+        <li>
+          <ChatBubbleLoading />
+        </li>
+      ) : null}
     </ul>
   );
 };

@@ -12,19 +12,23 @@ type Props = {
 
 const Interview = ({ role }: Props) => {
   const [messages, setMessages] = useState<ChatResponse[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     if (!messages.length) {
       (async () => {
+        setIsLoading(true);
         const initialInterview = await openaiService.startQuestions(role);
         if (initialInterview) {
           setMessages(initialInterview);
         }
+        setIsLoading(false);
       })();
     }
   }, []);
 
   const addMessage = (newMessage: ChatResponse) => {
+    setIsLoading(true);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     const chatFormData = {
@@ -40,6 +44,8 @@ const Interview = ({ role }: Props) => {
         },
       ]);
     });
+
+    setIsLoading(false);
   };
 
   const API_URL = "https://api.openai.com/v1/chat/completions";
@@ -58,7 +64,7 @@ const Interview = ({ role }: Props) => {
 
   return (
     <Card className="p-5">
-      <Chat messages={messages} />
+      <Chat messages={messages} isLoading={isLoading} />
       <InterviewResponse addMessage={addMessage} />
     </Card>
   );
