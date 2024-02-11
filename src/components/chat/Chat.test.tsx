@@ -6,7 +6,7 @@ import { ChatResponse } from "@/services/OpenaiService";
 describe("Chat", () => {
   test("Should return the proper message when messages is empty", () => {
     const messages: ChatResponse[] = [];
-    render(<Chat messages={messages} />);
+    render(<Chat messages={messages} isLoading={false} />);
 
     expect(screen.getByText(/No Messages/)).toBeDefined();
   });
@@ -19,7 +19,7 @@ describe("Chat", () => {
       },
     ];
 
-    render(<Chat messages={messages} />);
+    render(<Chat messages={messages} isLoading={false} />);
 
     expect(screen.getByText(messages[0].content)).toBeDefined();
   });
@@ -32,7 +32,7 @@ describe("Chat", () => {
       },
     ];
 
-    render(<Chat messages={messages} />);
+    render(<Chat messages={messages} isLoading={false} />);
 
     expect(screen.getByText(messages[0].role)).toBeDefined();
   });
