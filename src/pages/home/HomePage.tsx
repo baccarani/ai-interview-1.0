@@ -1,6 +1,5 @@
 import { Card } from "@/components/ui/card";
 import InterviewSetup from "@/features/interview-setup/InterviewSetup";
-// import Recorder from "@/features/recorder/Recorder";
 import Layout from "@/layout/Layout";
 import Container from "@/layout/container/Container";
 
@@ -9,10 +8,9 @@ const HomePage = () => {
     <Layout>
       <Container className="grid grid-cols-1 gap-5 py-5">
         <Card className="p-5">
-          {/* <Recorder fileName="random" /> */}
           <h1 className="text-2xl font-semibold">AI Interview</h1>
-          <p className="text-slate-500">
-            Hone your interview skills practicing with AI
+          <p className="font-light">
+            Hone your interview skills by practicing with AI
           </p>
         </Card>
         <InterviewSetup />

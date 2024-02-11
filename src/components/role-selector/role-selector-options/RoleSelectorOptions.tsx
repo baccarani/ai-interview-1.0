@@ -20,7 +20,7 @@ const RoleSelectorOptions = ({ roles, currentRole, setCurrentRole }: Props) => {
           <Button
             onClick={() => changeRole(role)}
             className={buttonVariants({
-              variant: currentRole === role ? "default" : "secondary",
+              variant: currentRole === role ? "secondary" : "outline",
             })}
           >
             {role}
