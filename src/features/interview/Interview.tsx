@@ -1,6 +1,7 @@
+import { useEffect, useRef } from "react";
 import { Card } from "@/components/ui/card";
 import { useState } from "react";
-import { ChatResponse } from "@/services/OpenaiService";
+import { ChatResponse, openaiService } from "@/services/OpenaiService";
 import Chat from "@/components/chat/Chat";
 import InterviewResponse from "./interview-response/InterviewResponse";
 import axios from "axios";
@@ -10,24 +11,27 @@ type Props = {
 };
 
 const Interview = ({ role }: Props) => {
-  const [messages, setMessages] = useState<ChatResponse[]>([
-    {
-      role: "assistant",
-      content:
-        "What experience do you have in leading the development of a new product or feature?",
-    },
-    {
-      role: "user",
-      content: "I have experience working with building ai interviews",
-    },
-    {
-      role: "assistant",
-      content:
-        "That's impressive! Leading the development of AI interviews involves a deep understanding of both artificial intelligence and user experience design. It's crucial to ensure that the AI accurately evaluates candidates while providing a seamless and intuitive interface for both candidates and interviewers. Could you share more about your specific role and the challenges you faced during this project?",
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatResponse[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    let ignore = false;
+    (async () => {
+      setIsLoading(true);
+      const initialInterview = await openaiService.startQuestions(role);
+      if (initialInterview && !ignore) {
+        setMessages(initialInterview);
+      }
+      setIsLoading(false);
+    })();
+
+    return () => {
+      ignore = true;
+    };
+  }, []);
 
   const addMessage = (newMessage: ChatResponse) => {
+    setIsLoading(true);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
 
     const chatFormData = {
@@ -43,6 +47,8 @@ const Interview = ({ role }: Props) => {
         },
       ]);
     });
+
+    setIsLoading(false);
   };
 
   const API_URL = "https://api.openai.com/v1/chat/completions";
@@ -61,7 +67,7 @@ const Interview = ({ role }: Props) => {
 
   return (
     <Card className="p-5">
-      <Chat messages={messages} />
+      <Chat messages={messages} isLoading={isLoading} />
       <InterviewResponse addMessage={addMessage} />
     </Card>
   );

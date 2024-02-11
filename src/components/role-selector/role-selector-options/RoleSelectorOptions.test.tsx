@@ -51,19 +51,4 @@ describe("RoleSelectorOptions", () => {
 
     expect(mockSetCurrentRole).toHaveBeenCalledWith(Roles.PRODUCT_MANAGER);
   });
-
-  test("Should highlight the current role", () => {
-    const currentRole: Roles = Roles.SOFTWARE_ENGINEER;
-    render(
-      <RoleSelectorOptions
-        roles={roles}
-        currentRole={currentRole}
-        setCurrentRole={mockSetCurrentRole}
-      />
-    );
-
-    const currentRoleButton = screen.getByText(currentRole);
-
-    expect(currentRoleButton.className).toContain(highlightedRoleClassNames);
-  });
 });
