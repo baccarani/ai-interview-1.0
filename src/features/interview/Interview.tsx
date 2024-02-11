@@ -14,7 +14,8 @@ type Props = {
 const Interview = ({ role }: Props) => {
   const [messages, setMessages] = useState<ChatResponse[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isProcessingAudio, setIsProcessingAudio] = useState(false);
+  const [isProcessingAudio, setIsProcessingAudio] = useState(true);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     let ignore = false;
@@ -22,20 +23,33 @@ const Interview = ({ role }: Props) => {
       setIsLoading(true);
       const initialInterview = await openaiService.startQuestions(role);
       if (initialInterview && !ignore) {
-        setMessages(initialInterview);
+        postData("https://api.openai.com/v1/audio/speech", {
+          model: "tts-1-hd",
+          voice: "alloy",
+          input: initialInterview[0].content,
+        }, 'blob').then((audioBlob) => {
+          const audio = new Audio(URL.createObjectURL(audioBlob.data));
+          audioRef.current = audio;
+          setMessages(initialInterview);
+          setIsLoading(false);
+          audio.play();
+          audio.onended = () => setIsProcessingAudio(false);
+        });
       }
-      setIsLoading(false);
     })();
-
     return () => {
       ignore = true;
+      if (audioRef.current) {
+        audioRef.current.pause();
+        audioRef.current.currentTime = 0;
+        audioRef.current.src = "";
+      }
     };
   }, []);
 
   const addMessage = (newMessage: ChatResponse) => {
     setIsLoading(true);
     setMessages((prevMessages) => [...prevMessages, newMessage]);
-
     const chatFormData = {
       messages: [...messages, newMessage],
       model: OpenaiModelTypes.GPT_3_TURBO,
@@ -45,23 +59,22 @@ const Interview = ({ role }: Props) => {
         content: chatResponse.data.choices[0].message.content,
         role: "assistant",
       };
-  
       postData("https://api.openai.com/v1/audio/speech", {
         model: "tts-1-hd",
         voice: "alloy",
         input: assistantMessage.content,
       }, 'blob').then((audioBlob) => {
         const audio = new Audio(URL.createObjectURL(audioBlob.data));
+        audioRef.current = audio;
         setMessages((prevMessages) => [
           ...prevMessages,
           assistantMessage,
         ]);
+        setIsLoading(false);
         audio.play();
         audio.onended = () => setIsProcessingAudio(false);
       });
     });
-
-    setIsLoading(false);
   };
 
   const axiosInstance = axios.create({
