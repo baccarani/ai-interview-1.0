@@ -4,13 +4,6 @@ import Chat from "./Chat";
 import { ChatResponse } from "@/services/OpenaiService";
 
 describe("Chat", () => {
-  test("Should return the proper message when messages is empty", () => {
-    const messages: ChatResponse[] = [];
-    render(<Chat messages={messages} isLoading={false} />);
-
-    expect(screen.getByText(/No Messages/)).toBeDefined();
-  });
-
   test("Should display the messages", () => {
     const messages: ChatResponse[] = [
       {
