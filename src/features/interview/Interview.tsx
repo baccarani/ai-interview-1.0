@@ -27,6 +27,7 @@ const Interview = ({ role }: Props) => {
         "That's impressive! Leading the development of AI interviews involves a deep understanding of both artificial intelligence and user experience design. It's crucial to ensure that the AI accurately evaluates candidates while providing a seamless and intuitive interface for both candidates and interviewers. Could you share more about your specific role and the challenges you faced during this project?",
     },
   ]);
+  const [isProcessingAudio, setIsProcessingAudio] = useState(false);
 
   const addMessage = (newMessage: ChatResponse) => {
     setMessages((prevMessages) => [...prevMessages, newMessage]);
@@ -52,6 +53,7 @@ const Interview = ({ role }: Props) => {
           assistantMessage,
         ]);
         audio.play();
+        audio.onended = () => setIsProcessingAudio(false);
       });
     });
   };
@@ -70,7 +72,7 @@ const Interview = ({ role }: Props) => {
   return (
     <Card className="p-5">
       <Chat messages={messages} />
-      <InterviewResponse addMessage={addMessage} />
+      <InterviewResponse addMessage={addMessage} isProcessingAudio={isProcessingAudio} setIsProcessingAudio={setIsProcessingAudio} />
     </Card>
   );
 };

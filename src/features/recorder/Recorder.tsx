@@ -9,9 +9,11 @@ import { Mic, MicOff } from 'lucide-react';
 interface RecorderProps {
     fileName: string;
     addMessage: (newMessage: ChatResponse) => void;
+    isProcessingAudio: boolean;
+    setIsProcessingAudio: (isProcessing: boolean) => void;
 }
 
-const Recorder = ({ fileName, addMessage }: RecorderProps) => {
+const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudio }: RecorderProps) => {
     const recorder = useRecorderPermission('audio');
     const [isRecording, setIsRecording] = useState(false);
 
@@ -19,6 +21,7 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
         setIsRecording(!isRecording);
 
         if (isRecording) {
+            setIsProcessingAudio(true);
             await recorder.stopRecording()
             let blob = await recorder.getBlob()
 
@@ -52,7 +55,7 @@ const Recorder = ({ fileName, addMessage }: RecorderProps) => {
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <Button onClick={toggleRecording}>
+            <Button onClick={toggleRecording} disabled={isProcessingAudio}>
                 <div className="icon-container">
                     {isRecording ? <MicOff className="icon" /> : <Mic className="icon" />} 
                 </div>
