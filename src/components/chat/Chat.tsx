@@ -5,9 +5,10 @@ import ChatBubbleLoading from "./chat-bubble/chat-bubble-loading/ChatBubbleLoadi
 type Props = {
   messages: ChatResponse[];
   isLoading: boolean;
+  isProcessingAudio: boolean;
 };
 
-const Chat = ({ messages, isLoading }: Props) => {
+const Chat = ({ messages, isLoading, isProcessingAudio }: Props) => {
   return (
     <ul className="flex flex-col gap-5">
       {messages.map((message) => (
@@ -19,7 +20,7 @@ const Chat = ({ messages, isLoading }: Props) => {
           />
         </li>
       ))}
-      {isLoading ? (
+      {isLoading || isProcessingAudio ? (
         <li>
           <ChatBubbleLoading />
         </li>

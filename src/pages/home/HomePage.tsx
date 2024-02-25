@@ -6,13 +6,18 @@ import Container from "@/layout/container/Container";
 const HomePage = () => {
   return (
     <Layout>
-      <Container className="grid grid-cols-1 gap-5 py-5">
-        <Card className="p-5">
-          <h1 className="text-2xl font-semibold">AI Interview</h1>
-          <p className="font-light">
-            Hone your interview skills by practicing with AI
-          </p>
-        </Card>
+      <Container className="grid grid-cols-1 gap-4 py-4">
+        <div>
+          <h1 className="text-6xl font-semibold leading-tight mt-4 mb-4">
+            <span className="bg-gradient-to-r from-blue-500 to-red-500 text-transparent bg-clip-text">
+              Hello, Baccarani.
+            </span>
+            <br />
+            <span className="text-gray-400">
+              Ready to ace your interview?
+            </span>
+          </h1>
+        </div>
         <InterviewSetup />
       </Container>
     </Layout>
