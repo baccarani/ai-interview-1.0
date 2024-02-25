@@ -8,7 +8,7 @@ const HomePage = () => {
     <Layout>
       <Container className="grid grid-cols-1 gap-4 py-4">
         <div>
-          <h1 className="text-6xl font-semibold leading-tight mt-4 mb-4">
+          <h1 className="text-6xl font-semibold leading-tight mt-4 mb-12">
             <span className="bg-gradient-to-r from-blue-500 to-red-500 text-transparent bg-clip-text">
               Hello, Baccarani.
             </span>
