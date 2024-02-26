@@ -16,7 +16,7 @@ const Chat = ({ messages, isLoading, isProcessingAudio }: Props) => {
           <ChatBubble
             role={message.role}
             text={message.content}
-            className={message.role === "assistant" ? "mr-auto" : "ml-auto"}
+            className={`${message.role === "assistant" ? "mr-auto" : "ml-auto"} border-none`}
           />
         </li>
       ))}

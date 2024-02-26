@@ -9,7 +9,7 @@ const RoleSelector = () => {
   const [currentRole, setCurrentRole] = useState<Roles>(Roles.PRODUCT_MANAGER);
 
   return (
-    <Card className="p-5 flex flex-col gap-5">
+    <Card className={`p-5 flex flex-col gap-5 border-none`}>
       <div>
         <h3 className="text-xl font-semibold mb-3">Select Your Current Role</h3>
         <RoleSelectorOptions
