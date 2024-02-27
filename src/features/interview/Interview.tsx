@@ -181,10 +181,10 @@ const Interview = ({ role }: Props) => {
   };
 
   return (
-    <Card className="p-5 bg-black-100">
+    <div className="p-5 bg-black-100">
       <Chat messages={messages} isLoading={isLoading} isProcessingAudio={isProcessingAudio} />
       <InterviewResponse addMessage={addMessage} isProcessingAudio={isProcessingAudio} setIsProcessingAudio={setIsProcessingAudio} isAudioPlaying={isAudioPlaying} setIsAudioPlaying={setIsAudioPlaying} />
-    </Card>
+    </div>
   );
 };
 

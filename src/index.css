@@ -27,13 +27,13 @@ video {
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
-    --card: 213, 43%, 96%;
+    --card: 217, 43%, 96%;
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
     --primary: 240 5.9% 10%;
     --primary-foreground: 0 0% 98%;
-    --secondary: 216 88% 91%;
+    --secondary: 217 91% 91%;
     --secondary-foreground: 240 5.9% 10%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
@@ -50,13 +50,13 @@ video {
   .dark {
     --background: 222.2 0% 7.8%;
     --foreground: 0 0% 98%;
-    --card: 240, 3%, 12%;
+    --card: 240, 3.5%, 12%;
     --card-foreground: 0 0% 98%;
     --popover: 240 10% 3.9%;
     --popover-foreground: 0 0% 98%;
     --primary: 0 0% 98%;
     --primary-foreground: 240 5.9% 10%;
-    --secondary: 216 19% 28%;
+    --secondary: 203, 100%, 23%;
     --secondary-foreground: 0 0% 98%;
     --muted: 240 3.7% 15.9%;
     --muted-foreground: 240 5% 64.9%;
