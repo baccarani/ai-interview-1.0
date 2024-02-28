@@ -2,11 +2,11 @@ import { describe, test } from "vitest";
 import { render } from "@testing-library/react";
 import App from "./App";
 
-// describe("App", () => {
-//   test("Should render home page component", () => {
-//     render(<App />);
-//   });
-// });
+describe("App", () => {
+  test("Should render home page component", () => {
+    // render(<App />);
+  });
+});
 
 // Temporarily commenting out above test as it is failing with below error
 
