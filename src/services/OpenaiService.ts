@@ -15,8 +15,6 @@ const apiKey = import.meta.env.VITE_OPENAI_API_KEY;
 
 const openai = new OpenAI({ apiKey, dangerouslyAllowBrowser: true });
 
-const role = "Product Manager";
-
 const chat = (messages: ChatResponse[]): Promise<ChatCompletion> => {
   return openai.chat.completions.create({
     messages: messages.map((message) => message as ChatCompletionMessage),
@@ -24,11 +22,12 @@ const chat = (messages: ChatResponse[]): Promise<ChatCompletion> => {
   });
 };
 
-const startQuestions = async (): Promise<ChatResponse[]> => {
+const startQuestions = async (
+  role = "Product Manager"
+): Promise<ChatResponse[]> => {
   const message: ChatCompletionMessageParam = {
     role: "system",
-    content: `You are interviewing the user for a ${role} position. Ask short questions that are relevant to a ${role}. Your name is Greg. The user is Travis. Keep responses under 30 words and be funny sometimes. Response in just the string of the question. Only ask one question at a time.`,
-    name: "Greg",
+    content: `You are interviewing a person. Ask short questions relevant to the role. Always keep your responses short to two sentences max all the time, and be funny sometimes. If the user talks about topics other than the interview, redirect them back to the interview immediately and sternly. Always ask a total of 5 interview questions before concluding and providing feedback. Only ask one question at a time, and do not give feedback. It should be like a real interview. Start the interview by greeting the user, and thank the user for taking the time to discuss their candidacy for the ${role} opening.`,
   };
 
   const response = await chat([message]);
