@@ -11,9 +11,11 @@ interface RecorderProps {
     addMessage: (newMessage: ChatResponse) => void;
     isProcessingAudio: boolean;
     setIsProcessingAudio: (isProcessing: boolean) => void;
+    isAudioPlaying: boolean;
+    setIsAudioPlaying: (isAudioPlaying: boolean) => void;
 }
 
-const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudio }: RecorderProps) => {
+const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudio, isAudioPlaying, setIsAudioPlaying }: RecorderProps) => {
     const recorder = useRecorderPermission('audio');
     const [isRecording, setIsRecording] = useState(false);
 
@@ -22,6 +24,7 @@ const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudi
 
         if (isRecording) {
             setIsProcessingAudio(true);
+            setIsAudioPlaying(true);
             await recorder.stopRecording()
             let blob = await recorder.getBlob()
 
@@ -33,7 +36,7 @@ const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudi
 
             const newMessage: ChatResponse = {
                 role: "user",
-                content: response.data.text,
+                content: response.data.text + " If I ask about topics other than the interview, don't answer the off-topic question. Instead, redirect me back to the interview immediately and sternly. Tell me that I am going off-topic ONLY IF I am going off-topic.",
             };
 
             addMessage(newMessage);
@@ -55,7 +58,7 @@ const Recorder = ({ fileName, addMessage, isProcessingAudio, setIsProcessingAudi
 
     return (
         <div className="flex flex-col items-center justify-center">
-            <Button onClick={toggleRecording} disabled={isProcessingAudio}>
+            <Button onClick={toggleRecording} disabled={isProcessingAudio || isAudioPlaying}>
                 <div className="icon-container">
                     {isRecording ? <MicOff className="icon" /> : <Mic className="icon" />} 
                 </div>

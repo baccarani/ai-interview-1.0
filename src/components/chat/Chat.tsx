@@ -5,9 +5,10 @@ import ChatBubbleLoading from "./chat-bubble/chat-bubble-loading/ChatBubbleLoadi
 type Props = {
   messages: ChatResponse[];
   isLoading: boolean;
+  isProcessingAudio: boolean;
 };
 
-const Chat = ({ messages, isLoading }: Props) => {
+const Chat = ({ messages, isLoading, isProcessingAudio }: Props) => {
   return (
     <ul className="flex flex-col gap-5">
       {messages.map((message) => (
@@ -15,11 +16,11 @@ const Chat = ({ messages, isLoading }: Props) => {
           <ChatBubble
             role={message.role}
             text={message.content}
-            className={message.role === "assistant" ? "mr-auto" : "ml-auto"}
+            className={`${message.role === "assistant" ? "mr-auto" : "ml-auto"} border-none`}
           />
         </li>
       ))}
-      {isLoading ? (
+      {isLoading || isProcessingAudio ? (
         <li>
           <ChatBubbleLoading />
         </li>
