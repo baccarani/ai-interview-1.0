@@ -1,4 +1,4 @@
-# AI Interview---frontend
+# AI Interview
 
 Steps to run the React Vite app locally:
 
