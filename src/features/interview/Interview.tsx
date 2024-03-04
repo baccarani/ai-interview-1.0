@@ -1,5 +1,4 @@
 import { useEffect, useRef } from "react";
-import { Card } from "@/components/ui/card";
 import { useState } from "react";
 import { ChatResponse, openaiService } from "@/services/OpenaiService";
 import Chat from "@/components/chat/Chat";
@@ -29,33 +28,33 @@ const Interview = ({ role }: Props) => {
       if (initialInterview && !ignore) {
 
         // testing without audio
-        setMessages(initialInterview);
-        setQuestionCount(questionCount + 1);
-        setIsLoading(false);
-        setIsProcessingAudio(false);
-        setIsAudioPlaying(false);
+        // setMessages(initialInterview);
+        // setQuestionCount(questionCount + 1);
+        // setIsLoading(false);
+        // setIsProcessingAudio(false);
+        // setIsAudioPlaying(false);
 
         //testing with audio
-        // postData("https://api.openai.com/v1/audio/speech", {
-        //   model: "tts-1",
-        //   voice: "alloy",
-        //   input: initialInterview[0].content,
-        // }, 'blob', source.token).then((audioBlob) => {
-        //   const audio = new Audio(URL.createObjectURL(audioBlob.data));
-        //   audioRef.current = audio;
-        //   setMessages(initialInterview);
-        //   setQuestionCount(questionCount + 1);
-        //   setIsLoading(false);
-        //   setIsProcessingAudio(false);
-        //   audio.play();
-        //   audio.onended = () => setIsAudioPlaying(false);
-        // }).catch((thrown) => {
-        //   if (axios.isCancel(thrown)) {
-        //     console.log('Request canceled', thrown.message);
-        //   } else {
-        //     console.log('Error', thrown);
-        //   }
-        // });
+        postData("https://api.openai.com/v1/audio/speech", {
+          model: "tts-1",
+          voice: "alloy",
+          input: initialInterview[0].content,
+        }, 'blob', source.token).then((audioBlob) => {
+          const audio = new Audio(URL.createObjectURL(audioBlob.data));
+          audioRef.current = audio;
+          setMessages(initialInterview);
+          setQuestionCount(questionCount + 1);
+          setIsLoading(false);
+          setIsProcessingAudio(false);
+          audio.play();
+          audio.onended = () => setIsAudioPlaying(false);
+        }).catch((thrown) => {
+          if (axios.isCancel(thrown)) {
+            console.log('Request canceled', thrown.message);
+          } else {
+            console.log('Error', thrown);
+          }
+        });
       }
     })();
     return () => {
@@ -121,44 +120,44 @@ const Interview = ({ role }: Props) => {
       setQuestionCount(questionCount + 1);
 
       // testing without audio
-      setMessages((prevMessages) => [
-        ...prevMessages,
-        assistantMessage,
-      ]);
-      setIsLoading(false);
-      setIsProcessingAudio(false);
-      setIsAudioPlaying(false);
+      // setMessages((prevMessages) => [
+      //   ...prevMessages,
+      //   assistantMessage,
+      // ]);
+      // setIsLoading(false);
+      // setIsProcessingAudio(false);
+      // setIsAudioPlaying(false);
 
       //testing with audio
-      // postData("https://api.openai.com/v1/audio/speech", {
-      //   model: "tts-1-hd",
-      //   voice: "alloy",
-      //   input: assistantMessage.content,
-      // }, 'blob', source.token).then((audioBlob) => {
-      //   if (isMountedRef.current) {
-      //     const audio = new Audio(URL.createObjectURL(audioBlob.data));
-      //     audioRef.current = audio;
-      //     setMessages((prevMessages) => [
-      //       ...prevMessages,
-      //       assistantMessage,
-      //     ]);
-      //     setIsLoading(false);
-      //     setIsProcessingAudio(false);
-      //     audio.play();
-      //     audio.onended = () => {
-      //       if (isMountedRef.current) {
-      //         setIsProcessingAudio(false);
-      //         setIsAudioPlaying(false);
-      //       }
-      //     };
-      //   }
-      // }).catch((thrown) => {
-      //   if (axios.isCancel(thrown)) {
-      //     console.log('Request canceled', thrown.message);
-      //   } else {
-      //     console.log('Error', thrown);
-      //   }
-      // });
+      postData("https://api.openai.com/v1/audio/speech", {
+        model: "tts-1-hd",
+        voice: "alloy",
+        input: assistantMessage.content,
+      }, 'blob', source.token).then((audioBlob) => {
+        if (isMountedRef.current) {
+          const audio = new Audio(URL.createObjectURL(audioBlob.data));
+          audioRef.current = audio;
+          setMessages((prevMessages) => [
+            ...prevMessages,
+            assistantMessage,
+          ]);
+          setIsLoading(false);
+          setIsProcessingAudio(false);
+          audio.play();
+          audio.onended = () => {
+            if (isMountedRef.current) {
+              setIsProcessingAudio(false);
+              setIsAudioPlaying(false);
+            }
+          };
+        }
+      }).catch((thrown) => {
+        if (axios.isCancel(thrown)) {
+          console.log('Request canceled', thrown.message);
+        } else {
+          console.log('Error', thrown);
+        }
+      });
 
     }).catch((thrown) => {
       if (axios.isCancel(thrown)) {

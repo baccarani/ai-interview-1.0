@@ -12,7 +12,7 @@ describe("Chat", () => {
       },
     ];
 
-    render(<Chat messages={messages} isLoading={false} />);
+    render(<Chat messages={messages} isLoading={false} isProcessingAudio={false} />);
 
     expect(screen.getByText(messages[0].content)).toBeDefined();
   });
@@ -25,7 +25,7 @@ describe("Chat", () => {
       },
     ];
 
-    render(<Chat messages={messages} isLoading={false} />);
+    render(<Chat messages={messages} isLoading={false} isProcessingAudio={false} />);
 
     expect(screen.getByText(messages[0].role)).toBeDefined();
   });

@@ -1,4 +1,3 @@
-import { Card } from "@/components/ui/card";
 import Interview from "@/features/interview/Interview";
 import Layout from "@/layout/Layout";
 import Container from "@/layout/container/Container";
