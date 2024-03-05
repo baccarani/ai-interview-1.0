@@ -2,7 +2,7 @@
 
 const Footer = () => {
   return (
-    <footer className="p-3 text-center p-3 border-t sticky bottom-0 bg-background">
+    <footer className="p-3 text-center p-3 border-t">
       Website made with <span className="animate-pulse">💙</span>
     </footer>
   );
