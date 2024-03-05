@@ -1,9 +1,14 @@
+import { useEffect } from 'react';
 import InterviewSetup from "@/features/interview-setup/InterviewSetup";
 import Layout from "@/layout/Layout";
 import Container from "@/layout/container/Container";
 // import Typewriter from 'typewriter-effect';
 
 const HomePage = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <Layout>
       <Container className="grid grid-cols-1 gap-4 py-4">
