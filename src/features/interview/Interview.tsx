@@ -180,7 +180,7 @@ const Interview = ({ role }: Props) => {
   };
 
   return (
-    <div className="p-5 bg-black-100">
+    <div className="py-5 bg-black-100">
       <Chat messages={messages} isLoading={isLoading} isProcessingAudio={isProcessingAudio} />
       <InterviewResponse addMessage={addMessage} isProcessingAudio={isProcessingAudio} setIsProcessingAudio={setIsProcessingAudio} isAudioPlaying={isAudioPlaying} setIsAudioPlaying={setIsAudioPlaying} />
     </div>

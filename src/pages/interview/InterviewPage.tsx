@@ -11,7 +11,7 @@ const InterviewPage = () => {
   return (
     <Layout>
       <Container className="grid grid-cols-1 gap-5">
-        <div className="p-5 bg-black-100 border-none">
+        <div className="py-5 bg-black-100 border-none">
           <h3 className="font-semibold">Role: {role}</h3>
         </div>
         <Interview role={role} />
