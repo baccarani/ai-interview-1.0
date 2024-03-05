@@ -12,7 +12,7 @@ const Layout = ({ children }: Props) => {
       <header className="sticky top-0 bg-background px-6">
         <Navbar />
       </header>
-      <main className="grow px-6">{children}</main>
+      <main className="grow px-6 pb-6">{children}</main>
       <Footer />
     </div>
   );
