@@ -1,7 +1,7 @@
 import InterviewSetup from "@/features/interview-setup/InterviewSetup";
 import Layout from "@/layout/Layout";
 import Container from "@/layout/container/Container";
-import Typewriter from 'typewriter-effect';
+// import Typewriter from 'typewriter-effect';
 
 const HomePage = () => {
   return (
@@ -10,14 +10,15 @@ const HomePage = () => {
         <div>
           <h1 className="text-6xl font-semibold leading-tight mt-4 mb-16">
             <div className="inline-block bg-gradient-to-r from-blue-500 to-red-500 text-transparent bg-clip-text">
-              <Typewriter
+              {/* <Typewriter
                 options={{
                   strings: 'Hello, Baccarani',
                   autoStart: true,
                   delay: 17.5,
                   cursor: "",
                 }}
-              />
+              /> */}
+              Hello, Baccarani
             </div>
             <br />
             <span className="text-gray-400">
